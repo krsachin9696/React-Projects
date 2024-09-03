@@ -1,8 +1,19 @@
-import { forwardRef } from "react"
+import { forwardRef, useImperativeHandle, useRef } from "react"
 
 const ResultModal = forwardRef (function ResultModal({result, targetTime }, ref) {
+
+    const dialog = useRef();
+
+    useImperativeHandle(ref, () => {
+        return {
+            open() {
+                dialog.current.showModal();
+            }
+        };
+    }); 
+
     return (
-        <dialog ref={ref} className="result-modal">
+        <div ref={dialog} className="result-modal">
             <h2>You {result}</h2>
             <p>
                 The target time was <strong>{targetTime} seconds.</strong>
@@ -13,7 +24,7 @@ const ResultModal = forwardRef (function ResultModal({result, targetTime }, ref)
             <form method="dialog">
                 <button>Close</button>
             </form>
-        </dialog>
+        </div>
     )
 })
 
