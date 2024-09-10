@@ -13,7 +13,6 @@ export default function Header() {
     }, 0);
 
     function handleShowCart() {
-        console.log("hn ye chal rha")
         userPorgressCtx.showCart();
     }
 

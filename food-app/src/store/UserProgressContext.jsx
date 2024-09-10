@@ -12,9 +12,7 @@ export function UserProgressContextProvider({ children }) {
   const [userProgress, setUserProgress] = useState('');
 
   function showCart() {
-    console.log("hn chal to ye bhi rha h", userProgress)
     setUserProgress('cart');
-    console.log(userProgress)
   }
 
   function hideCart() {
