@@ -1,32 +1,39 @@
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement, setCustomValue } from './store/counter';
+import { updateDataValue } from './store/counter';
+import Charts from './components/chart';
 
 const App = () => {
-  const count = useSelector((state) => state.counter.value);
+  const chartData = useSelector((state) => state.counter.data);
   const dispatch = useDispatch();
+  const [newDataValue, setNewDataValue] = useState('');
 
-  const handleCustomValueChange = (e) => {
-    const value = parseInt(e.target.value, 10) || 0;
-    dispatch(setCustomValue(value));
+  const handleDataChange = (index) => {
+    const value = parseInt(newDataValue, 10) || 0;
+    dispatch(updateDataValue({ index, newValue: value }));
+    setNewDataValue('');
   };
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1>Redux Toolkit Practice</h1>
-      <h2>Display 1: Counter Value: {count}</h2>
-      <h2>Display 2: Counter Value: {count}</h2>
+      <h1>Redux Toolkit with Charts</h1>
 
-      <div>
-        <button onClick={() => dispatch(increment())}>Increment</button>
-        <button onClick={() => dispatch(decrement())}>Decrement</button>
-      </div>
+      <Charts />
 
-      <div style={{ marginTop: '20px' }}>
-        <input
-          type="number"
-          placeholder="Set Custom Value"
-          onChange={handleCustomValueChange}
-        />
+      <div style={{ marginTop: '40px' }}>
+        <h2>Update Chart Data</h2>
+        {chartData.map((item, index) => (
+          <div key={index} style={{ marginBottom: '10px' }}>
+            <span>{item.name}: {item.value}</span>
+            <input
+              type="number"
+              placeholder="New Value"
+              value={newDataValue}
+              onChange={(e) => setNewDataValue(e.target.value)}
+            />
+            <button onClick={() => handleDataChange(index)}>Update</button>
+          </div>
+        ))}
       </div>
     </div>
   );
