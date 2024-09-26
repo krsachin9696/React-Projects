@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1>Redux Toolkit with Charts</h1>
+      <h2>Redux Toolkit with Charts</h2>
 
       <Charts />
 
